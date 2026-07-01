@@ -21,15 +21,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
         const name = formData.get('name');
         const phone = formData.get('phone');
+        const country = formData.get('country');
+        const postalValue = formData.get('pincode');
         
+        let addressPayload = {
+            street: formData.get('street'),
+            city: formData.get('city')
+        };
+        
+        // Add state if applicable (UK doesn't use it)
+        if (country !== 'uk') {
+            addressPayload.state = formData.get('state');
+        }
+        
+        // Use the correct postal code field name for each country API
+        if (country === 'india') {
+            addressPayload.pincode = postalValue;
+        } else if (country === 'usa') {
+            addressPayload.zipcode = postalValue;
+        } else if (country === 'uk') {
+            addressPayload.postcode = postalValue;
+        }
+
         const payload = {
-            country: formData.get('country'),
-            address: {
-                street: formData.get('street'),
-                city: formData.get('city'),
-                state: formData.get('state'),
-                pincode: formData.get('pincode')
-            }
+            country: country,
+            address: addressPayload
         };
 
         try {
