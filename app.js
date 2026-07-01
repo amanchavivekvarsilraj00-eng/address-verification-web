@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 verificationBadge.classList.add('invalid');
                 badgeText.textContent = `Server Error: ${result.error || response.statusText}`;
             } else {
-                // Check API response format
-                const isVerified = result.isVerified || result.verified || result.success === true;
+                // Check if the address was actually verified (do not use result.success, that just means the API didn't crash)
+                const isVerified = result.isVerified || result.verified === true;
                 
                 if (isVerified) {
                     verificationBadge.classList.add('valid');
