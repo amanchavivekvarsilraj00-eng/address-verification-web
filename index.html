@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Address Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    
+    <div class="container">
+        <div class="glass-panel">
+            <div class="header">
+                <h1>Welcome Back</h1>
+                <p>Please enter your details to continue</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+                
+                <div class="input-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+1 (555) 000-0000">
+                </div>
+                
+                <div class="address-section">
+                    <h3>Address Details</h3>
+                    <div class="input-group">
+                        <label for="street">Street Address</label>
+                        <input type="text" id="street" name="street" required placeholder="123 Main St">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="input-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" required placeholder="New York">
+                        </div>
+                        <div class="input-group">
+                            <label for="state">State</label>
+                            <input type="text" id="state" name="state" required placeholder="NY">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="input-group">
+                            <label for="pincode">ZIP/Pincode</label>
+                            <input type="text" id="pincode" name="pincode" required placeholder="10001">
+                        </div>
+                        <div class="input-group">
+                            <label for="country">Country</label>
+                            <select id="country" name="country" required>
+                                <option value="india">India</option>
+                                <option value="usa" selected>USA</option>
+                                <option value="uk">United Kingdom</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="verificationResult" class="verification-badge hidden">
+                    <span class="icon"></span>
+                    <span class="text"></span>
+                </div>
+
+                <button type="submit" id="submitBtn">
+                    <span class="btn-text">Continue</span>
+                    <div class="spinner hidden"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
