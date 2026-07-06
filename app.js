@@ -5,6 +5,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const spinner = submitBtn.querySelector('.spinner');
     const verificationBadge = document.getElementById('verificationResult');
     const badgeText = verificationBadge.querySelector('.text');
+    const countrySelect = document.getElementById('country');
+
+    // Fetch supported countries dynamically from our new API route!
+    async function loadCountries() {
+        try {
+            const response = await fetch('https://address-verification-api-rho.vercel.app/api/countries');
+            const data = await response.json();
+            
+            if (data.success && data.supported_countries) {
+                // Clear the "Loading..." option
+                countrySelect.innerHTML = '';
+                
+                // Map the simple codes to beautiful display names
+                const displayNames = {
+                    'india': 'India',
+                    'usa': 'USA',
+                    'uk': 'United Kingdom'
+                };
+                
+                // Loop through the API response and draw the HTML dynamically
+                data.supported_countries.forEach(countryObj => {
+                    const option = document.createElement('option');
+                    option.value = countryObj.code;
+                    option.textContent = displayNames[countryObj.code] || countryObj.code.toUpperCase();
+                    
+                    // Set USA as default 
+                    if (countryObj.code === 'usa') {
+                        option.selected = true;
+                    }
+                    
+                    countrySelect.appendChild(option);
+                });
+            }
+        } catch (error) {
+            console.error('Failed to load countries from API:', error);
+            // Fallback just in case the internet dies
+            countrySelect.innerHTML = `
+                <option value="india">India</option>
+                <option value="usa" selected>USA</option>
+                <option value="uk">United Kingdom</option>
+            `;
+        }
+    }
+    
+    // Actually run the function when the page loads!
+    loadCountries();
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
